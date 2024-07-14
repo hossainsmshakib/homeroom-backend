@@ -3,7 +3,7 @@ import { getAllSignupInfo, postNewSignupUser } from '../controllers/signupContro
 
 const router = express.Router();
 
-router.get('/signup', getAllSignupInfo);
+//router.get('/signup', getAllSignupInfo);
 router.post('/signup', postNewSignupUser);
 
 export default router;

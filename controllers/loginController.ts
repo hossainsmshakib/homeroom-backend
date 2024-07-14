@@ -26,7 +26,7 @@ export async function loginUser(req: Request, res: Response) {
     const token = jwt.sign({ userId: user.userId }, config.JWT_SECRET, {
       expiresIn: "1h",
     });
-
+    
     res.json({ token });
   } catch (error) {
     console.log(error);
