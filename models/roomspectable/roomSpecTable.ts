@@ -1,95 +1,94 @@
 // models/roomspectable/roomSpecTable.ts
-import { Model, DataTypes } from "sequelize";
+
+import { DataTypes, Model } from "sequelize";
 import sequelize from "../index";
 
 interface RoomSpecAttributes {
   roomId: number;
   description: string;
   location: string;
+  latitude: number;
+  longitude: number;
   roomType: string;
   bathroomType: string;
   rent: number;
-  pic: string;
-  video: string;
+  pictures: string[]; // Assuming pictures is an array of string paths
+  video: string | null; // Make video optional with null type
   amenities: string;
   availability: string;
-  userId: number; // Foreign key
 }
 
 class RoomSpec extends Model<RoomSpecAttributes> implements RoomSpecAttributes {
   public roomId!: number;
   public description!: string;
   public location!: string;
+  public latitude!: number;
+  public longitude!: number;
   public roomType!: string;
   public bathroomType!: string;
   public rent!: number;
-  public pic!: string;
-  public video!: string;
+  public pictures!: string[];
+  public video!: string | null;
   public amenities!: string;
   public availability!: string;
-  public userId!: number;
-
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
 }
 
 RoomSpec.init(
   {
     roomId: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     location: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
+    },
+    latitude: {
+      type: DataTypes.FLOAT,
+      // allowNull: false,
+    },
+    longitude: {
+      type: DataTypes.FLOAT,
+      // allowNull: false,
     },
     roomType: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     bathroomType: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     rent: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      // allowNull: false,
     },
-    pic: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    pictures: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      //allowNull: false,
     },
     video: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: true,
     },
     amenities: {
       type: DataTypes.STRING,
-      allowNull: false,
+      //  allowNull: false,
     },
     availability: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Users', // Reference to the Users table
-        key: 'id', // Primary key of the Users table
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
+      // allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: "roomSpecTable",
+    modelName: "RoomSpec",
+    tableName: "roomSpecTables",
   }
 );
 
